@@ -29,7 +29,12 @@
 	</connectivity>
 
 	<!-- Replace this with appropriate procedures -->
-	<procedure name="validateLogin"/>
-	<procedure name="loadCities"/>
+	<procedure name="validateLogin" securityTest="wl_unprotected"/>
+
+	<procedure name="loadCities" securityTest="wl_unprotected"/>
+	
+	<procedure name="updateCityM" securityTest="UserSecurityCheck"/>
+	
+	<procedure name="updateCityW" securityTest="UserSecurityCheck"/>
 
 </wl:adapter>
