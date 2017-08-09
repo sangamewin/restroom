@@ -29,17 +29,18 @@ function loadCities() {
 	});
 }
 
-/************************************************************************
- * Implementation code for procedure - 'procedure2'
- *
- *
- * @return - invocationResult
- */
- 
-function procedure2(param) {
-	return WL.Server.invokeSQLStoredProcedure({
-		procedure : "storedProcedure2",
-		parameters : [param]
+var updateCityMStmt = WL.Server.createSQLStatement("update table avail set Men=? where City=?");
+function updateCityM(Men,City) {
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : updateCityMStmt,
+		parameters : [Men,City]
 	});
 }
 
+var updateCityWStmt = WL.Server.createSQLStatement("update table avail set Women=? where City=?");
+function updateCityW(Women,City) {
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : updateCityWStmt,
+		parameters : [Women,City]
+	});
+}
