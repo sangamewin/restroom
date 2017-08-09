@@ -17,3 +17,16 @@ a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, c
 body {
 
 }
+
+thead {
+	font-size=30px;
+	color: grey;
+}
+
+td {
+	
+}
+
+tr:nth-child(even) {
+	background:grey;
+}

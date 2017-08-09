@@ -1,4 +1,4 @@
-var Application = (function() {
+ var Application = (function() {
 	
 	function _start() {
 		WL.Logger.debug("_start()");
@@ -48,25 +48,61 @@ var Application = (function() {
 		gotoPage('index.html');
 	}
 
-	function _wlLoginRequired () {
-		
+	function _wlLoginRequired () {	
 	}
 	
 	function _postLoginProcess() {
 		var attributes = WL.Client.getUserInfo('UserSecurityCheckRealm', 'attributes');
-		var role = attributes.role;
-		if (role === 'user') {
-			gotoPage('main.html');
-		} else {
+		//var role = attributes.role; //for now ignoring the role, future enhancements.
 			gotoPage('admin.html');
-		}
+	}
+	
+	function _view() {
+		gotoPage('main.html');
+	}
+	
+	function _loadUserDetails() {
+		var invocationData = {
+				adapter : "MySqlAdapter",
+				procedure : "loadCities",
+				parameters  : []
+		};
+		
+		WL.Client.invokeProcedure(invocationData, 
+			{
+				onSuccess: _loadCitiesSuccess,
+				onFailure : _loadCitiesFail
+			});
+	}
+	
+	function _loadCitiesSuccess(res) {
+		// Ensure that the result was successful.
+    	if (res && res.invocationResult && res.invocationResult.isSuccessful &&
+    		res.invocationResult.resultSet )
+    	{
+    		// get the cities
+    		var cities = res.invocationResult.resultSet;
+    		var template = $("#usageList").html();
+    		$("#target").html(WL_.template(template)({cities:cities}));
+    		
+    	} else {
+    		_loadCitiesFail();
+    	}
+	}
+	
+	function _loadCitiesFail(response) {
+		mobileLoadingHide();
+		WL.Logger.info("Looks like connection to the WL server is down");
+		WL.SimpleDialog.show("Connection Down [1]", "WL Server is down, Connection not available", [{text: "Ok"}]);
 	}
 	
 	return {
 		start: function() { _start(); },
-		loginRequired: function() { _wlLoginRequired(); }
+		loginRequired: function() { _wlLoginRequired(); },
+		view: function() { _view(); },
+		loadUserDetails: function() { _loadUserDetails();}
 	};
-	
+
 }() );
 
 
