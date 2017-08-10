@@ -27,7 +27,7 @@ var Cities = (function() {
     	}
 	}
 	
-	function _loadCitiesFail(re){
+	function _loadCitiesFail(response){
 		mobileLoadingHide();
 		WL.Logger.info("Looks like connection to the WL server is down");
 		WL.SimpleDialog.show("Connection Down [1]", "WL Server is down, Connection not available", [{text: "Ok"}]);

@@ -60,7 +60,7 @@
 	
 	return {
 		start: function() { _start(); },
-		loginRequired: function() { _wlLoginRequired(); },
+		loginRequired: function() { _wlLoginRequired(); }
 	};
 
 }() );
