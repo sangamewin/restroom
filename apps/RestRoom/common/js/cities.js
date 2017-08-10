@@ -1,30 +1,42 @@
-var cities = (function() {
+var Cities = (function() {
 	
 	function _loadCities(){
-		var data = WL.Client.invokeProcedure({
-			adapter : MySqlAdapter,
-			procedure : loadCities,
+		 WL.Client.invokeProcedure({
+			adapter : "MySqlAdapter",
+			procedure : "loadCities",
 			parameters : [],
 		},
 		{
-			onSuccess : _loadCitiesSuccess(),
-			onFailure : _loadCitiesFail(),
+			onSuccess : _loadCitiesSuccess,
+			onFailure : _loadCitiesFail,
 		});
-		return data;
 	}
 	
-	function _loadCitiesSuccess(){
-		WL.Logger.info("Cities retrieved");
+	function _loadCitiesSuccess(res){
+		// Ensure that the result was successful.
+    	if (res && res.invocationResult && res.invocationResult.isSuccessful &&
+    		res.invocationResult.resultSet )
+    	{
+    		// get the cities
+    		var cities = res.invocationResult.resultSet;
+    		var template = $("#usageList").html();
+    		$("#target").html(WL_.template(template)({cities:cities}));
+    		
+    	} else {
+    		_loadCitiesFail();
+    	}
 	}
 	
-	function _loadCitiesFail(){
-		WL.Logger.info("Failed to retrieve cities");
+	function _loadCitiesFail(re){
+		mobileLoadingHide();
+		WL.Logger.info("Looks like connection to the WL server is down");
+		WL.SimpleDialog.show("Connection Down [1]", "WL Server is down, Connection not available", [{text: "Ok"}]);
 	}
 	
 	function _updateCityM(status,city){
 		WL.Client.invokeProcedure({
-			adapter : MySqlAdapter,
-			procedure : updateCityM,
+			adapter : "MySqlAdapter",
+			procedure : "updateCityM",
 			parameters : [status,city]
 		},
 		{
@@ -36,8 +48,8 @@ var cities = (function() {
 	
 	function _updateCityW(status,city){
 		WL.Client.invokeProcedure({
-			adapter : MySqlAdapter,
-			procedure : updateCityW,
+			adapter : "MySqlAdapter",
+			procedure : "updateCityW",
 			parameters : [status,city]
 		},
 		{
@@ -62,5 +74,4 @@ var cities = (function() {
 	};
 	
 }() );
-
 

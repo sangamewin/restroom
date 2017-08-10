@@ -57,50 +57,10 @@
 			gotoPage('admin.html');
 	}
 	
-	function _view() {
-		gotoPage('main.html');
-	}
-	
-	function _loadUserDetails() {
-		var invocationData = {
-				adapter : "MySqlAdapter",
-				procedure : "loadCities",
-				parameters  : []
-		};
-		
-		WL.Client.invokeProcedure(invocationData, 
-			{
-				onSuccess: _loadCitiesSuccess,
-				onFailure : _loadCitiesFail
-			});
-	}
-	
-	function _loadCitiesSuccess(res) {
-		// Ensure that the result was successful.
-    	if (res && res.invocationResult && res.invocationResult.isSuccessful &&
-    		res.invocationResult.resultSet )
-    	{
-    		// get the cities
-    		var cities = res.invocationResult.resultSet;
-    		var template = $("#usageList").html();
-    		$("#target").html(WL_.template(template)({cities:cities}));
-    		
-    	} else {
-    		_loadCitiesFail();
-    	}
-	}
-	
-	function _loadCitiesFail(response) {
-		mobileLoadingHide();
-		WL.Logger.info("Looks like connection to the WL server is down");
-		WL.SimpleDialog.show("Connection Down [1]", "WL Server is down, Connection not available", [{text: "Ok"}]);
-	}
 	
 	return {
 		start: function() { _start(); },
 		loginRequired: function() { _wlLoginRequired(); },
-		view: function() { _view(); },
-		loadUserDetails: function() { _loadUserDetails();}
 	};
 
 }() );
