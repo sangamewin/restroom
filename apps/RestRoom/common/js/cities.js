@@ -1,24 +1,38 @@
 var cities = (function() {
 	
 	function _loadCities(){
-		var data = WL.Client.invokeProcedure({
-			adapter : MySqlAdapter,
-			procedure : loadCities,
-			parameters : [],
-		},
-		{
-			onSuccess : _loadCitiesSuccess(),
-			onFailure : _loadCitiesFail(),
-		});
-		return data;
+		var invocationData = {
+				adapter : "MySqlAdapter",
+				procedure : "loadCities",
+				parameters  : []
+		};
+		
+		WL.Client.invokeProcedure(invocationData, 
+			{
+				onSuccess: _loadCitiesSuccess,
+				onFailure : _loadCitiesFail
+			});
 	}
 	
-	function _loadCitiesSuccess(){
-		WL.Logger.info("Cities retrieved");
+	function _loadCitiesSuccess(res){
+		// Ensure that the result was successful.
+    	if (res && res.invocationResult && res.invocationResult.isSuccessful &&
+    		res.invocationResult.resultSet )
+    	{
+    		// get the cities
+    		var cities = res.invocationResult.resultSet;
+    		var template = $("#usageList").html();
+    		$("#target").html(WL_.template(template)({cities:cities}));
+    		
+    	} else {
+    		_loadCitiesFail();
+    	}
 	}
 	
-	function _loadCitiesFail(){
-		WL.Logger.info("Failed to retrieve cities");
+	function _loadCitiesFail(response){
+		mobileLoadingHide();
+		WL.Logger.info("Looks like connection to the WL server is down");
+		WL.SimpleDialog.show("Connection Down [1]", "WL Server is down, Connection not available", [{text: "Ok"}]);
 	}
 	
 	function _updateCityM(status,city){

@@ -100,7 +100,7 @@
 		start: function() { _start(); },
 		loginRequired: function() { _wlLoginRequired(); },
 		view: function() { _view(); },
-		loadUserDetails: function() { _loadUserDetails();}
+		//loadUserDetails: function() { _loadUserDetails();} //transfered to cities.loadCities
 	};
 
 }() );
