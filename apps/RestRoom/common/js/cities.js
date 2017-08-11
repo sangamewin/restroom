@@ -1,17 +1,15 @@
-var cities = (function() {
+var Cities = (function() {
 	
 	function _loadCities(){
-		var invocationData = {
-				adapter : "MySqlAdapter",
-				procedure : "loadCities",
-				parameters  : []
-		};
-		
-		WL.Client.invokeProcedure(invocationData, 
-			{
-				onSuccess: _loadCitiesSuccess,
-				onFailure : _loadCitiesFail
-			});
+		 WL.Client.invokeProcedure({
+			adapter : "MySqlAdapter",
+			procedure : "loadCities",
+			parameters : [],
+		},
+		{
+			onSuccess : _loadCitiesSuccess,
+			onFailure : _loadCitiesFail,
+		});
 	}
 	
 	function _loadCitiesSuccess(res){
@@ -78,5 +76,4 @@ var cities = (function() {
 	};
 	
 }() );
-
 
