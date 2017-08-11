@@ -1,4 +1,4 @@
-<div data-role="page" id="main">
+<div data-role="page" id="admin">
 
 		<!-- <table>		
 			<tbody>
@@ -93,8 +93,9 @@
         		%>
             	<tr>
                 	<td><%= city.City %> </td>
-                	<td> <a href="javascript:void(0)" onclick = "btnMClick('<%= city.City %>','<%= city.Men %>')" data-role="button" class="ui-btn"><%= city.Men %> </td>
-					<td> <a href="javascript:void(0)" onclick = "btnWClick('<%= city.City %>','<%= city.Women %>')"  data-role="button" class="ui-btn"> <%= city.Women %> </a> </td>
+			       
+                	<td> <a href="javascript:void(0)" onclick = "btnMClick('<%= city.City %>','<%= city.Men %>')" data-role="button" class="ui-btn <%= city.Men %>"><%= city.Men %> </td>
+					<td> <a href="javascript:void(0)" onclick = "btnWClick('<%= city.City %>','<%= city.Women %>')"  data-role="button" class="ui-btn <%= city.Women %> "> <%= city.Women %> </a> </td>
             	</tr>
         		<% } ); %>
     		</tbody>
@@ -106,8 +107,8 @@
 		Cities.loadCities();
 		
 		function btnMClick(city, status){
-			status = status=="Open" ? "Close" : "Open";
-			
+	//	$.mobile.changePage("DialogBox.html", {role : "dialog"});
+			status = status == "Open" ? "Close" : "Open";
 			Cities.updateCityM(status, city);
 		}
 		
@@ -117,5 +118,4 @@
 			Cities.updateCityW(status, city);
 		}
 	</script>
-		
 </div>

@@ -39,6 +39,15 @@ thead {
 	background:#e2e2e2;
 }
 
+	.ui-btn.Open {
+		color: green !important;
+	}
+	
+	.ui-btn.Close {
+		color: red !important;
+	}
+
+
 td.Close {
 	color: red;
 }
@@ -50,3 +59,5 @@ td.Open {
 tr:nth-child(even) {
 	background:#f2f2f2;
 }
+
+

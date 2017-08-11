@@ -1,6 +1,7 @@
 var Cities = (function() {
 	
 	function _loadCities(){
+		mobileLoadingShow();
 		 WL.Client.invokeProcedure({
 			adapter : "MySqlAdapter",
 			procedure : "loadCities",
@@ -21,7 +22,7 @@ var Cities = (function() {
     		var cities = res.invocationResult.resultSet;
     		var template = $("#usageList").html();
     		$("#target").html(WL_.template(template)({cities:cities}));
-    		
+    		mobileLoadingHide();
     	} else {
     		_loadCitiesFail();
     	}

@@ -4,6 +4,10 @@ function gotoPage(uri) {
 	 $(":mobile-pagecontainer").pagecontainer("change", uri, {role : "page"});
 }
 
+function showDialog(uri) {
+	 $(":mobile-pagecontainer").pagecontainer("change", uri, {role : "page"});
+}
+
 function mobileLoadingShow() {
 	$.mobile.loading("show" , {
 		text: "Thinking",
