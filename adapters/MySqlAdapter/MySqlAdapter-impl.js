@@ -29,7 +29,7 @@ function loadCities() {
 	});
 }
 
-var updateCityMStmt = WL.Server.createSQLStatement("update table avail set Men=? where City=?");
+var updateCityMStmt = WL.Server.createSQLStatement("update avail set Men=? where City=?");
 function updateCityM(Men,City) {
 	return WL.Server.invokeSQLStatement({
 		preparedStatement : updateCityMStmt,
@@ -37,7 +37,7 @@ function updateCityM(Men,City) {
 	});
 }
 
-var updateCityWStmt = WL.Server.createSQLStatement("update table avail set Women=? where City=?");
+var updateCityWStmt = WL.Server.createSQLStatement("update avail set Women=? where City=?");
 function updateCityW(Women,City) {
 	return WL.Server.invokeSQLStatement({
 		preparedStatement : updateCityWStmt,

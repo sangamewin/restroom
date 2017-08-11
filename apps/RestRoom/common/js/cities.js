@@ -59,15 +59,17 @@ var Cities = (function() {
 		);
 	}
 	
+	
 	function _updateCitySuccess(res){
-		WL.SimpleDialog.show("Status Update", "Status updated Successfully", [{text: "Ok"}]);
+		// WL.SimpleDialog.show("Status Update", "Status updated Successfully", [{text: "Ok"}]);
 		_loadCities();
 	}
 	
 	function _updateCityFail(res){
-		WL.SimpleDialog.show("Status Update", "Status update failed", [{text: "Ok"}]);
+		// WL.SimpleDialog.show("Status Update", "Status update failed", [{text: "Ok"}]);
 		_loadCities();
 	}
+	
 	
 	return {
 		loadCities: function() { _loadCities(); },
