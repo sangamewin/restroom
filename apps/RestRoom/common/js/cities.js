@@ -41,7 +41,7 @@ var Cities = (function() {
 		},
 		{
 			onSuccess : _updateCitySuccess(),
-			onFail : _updateCityFail(),
+			onFailure : _updateCityFail(),
 		}
 		);
 	}
@@ -54,7 +54,7 @@ var Cities = (function() {
 		},
 		{
 			onSuccess : _updateCitySuccess(),
-			onFail : _updateCityFail(),
+			onFailure : _updateCityFail(),
 		}
 		);
 	}
