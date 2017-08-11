@@ -37,36 +37,38 @@ var cities = (function() {
 	
 	function _updateCityM(status,city){
 		WL.Client.invokeProcedure({
-			adapter : MySqlAdapter,
-			procedure : updateCityM,
+			adapter : "MySqlAdapter",
+			procedure : "updateCityM",
 			parameters : [status,city]
 		},
 		{
-			onSuccess : _updateCitySuccess(),
-			onFail : _updateCityFail(),
+			onSuccess : _updateCitySuccess,
+			onFailure : _updateCityFail,
 		}
 		);
 	}
 	
 	function _updateCityW(status,city){
 		WL.Client.invokeProcedure({
-			adapter : MySqlAdapter,
-			procedure : updateCityW,
+			adapter : "MySqlAdapter",
+			procedure : "updateCityW",
 			parameters : [status,city]
 		},
 		{
-			onSuccess : _updateCitySuccess(),
-			onFail : _updateCityFail(),
+			onSuccess : _updateCitySuccess,
+			onFailure : _updateCityFail,
 		}
 		);
 	}
 	
-	function _updateCitySuccess(){
-		WL.Logger.info("Cities updated");
+	function _updateCitySuccess(res){
+		WL.SimpleDialog.show("Status Update", "Status updated Successfully", [{text: "Ok"}]);
+		_loadCities();
 	}
 	
-	function _updateCityFail(){
-		WL.Logger.info("Cities failed to be updated");
+	function _updateCityFail(res){
+		WL.SimpleDialog.show("Status Update", "Status update failed", [{text: "Ok"}]);
+		_loadCities();
 	}
 	
 	return {
